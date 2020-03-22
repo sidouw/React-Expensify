@@ -1,10 +1,15 @@
 const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-
-module.exports= {
+module.exports= (env)=> {
+    const isProd = env === 'prod'
+    const CSSExtract = new MiniCssExtractPlugin({
+        filename: 'styles.css',
+      }) 
+    return{
     entry : './src/app.jsx',
     output:{
-        path:path.join(__dirname,'public/js'),
+        path:path.join(__dirname,'public','dist'),
         filename:'bundled.js'
     },
     module:{
@@ -14,16 +19,33 @@ module.exports= {
             exclude :/node-modules/
         },{
             test :/\.s?css$/,
-            use :[
-                'style-loader',
-                'css-loader',
-                'sass-loader'
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                  {
+                    loader: 'css-loader',
+                    options: {
+                      sourceMap: true
+                    }
+                  },
+                  {
+                    loader: 'sass-loader',
+                    options: {
+                      sourceMap: true
+                    }
+                  }
+                ]
+              }
             ]
-        }]
     },
-    devtool:'cheap-module-eval-source-map',
+    plugins: [
+        CSSExtract
+      ],
+    devtool:isProd ? 'source-map': 'inline-source-map',
     devServer:{
         contentBase :path.join(__dirname,'public'),
+        publicPath:'/dist/',
         historyApiFallback : true
-    }
+    }}
 }
