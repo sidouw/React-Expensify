@@ -14,5 +14,5 @@ const expenses = [{
 
 test('sould get total expenses',()=>{
     
-    expect(getTotalExpenses(expenses)).toBe(0)
+    expect(getTotalExpenses(expenses)).toBe(10)
 })
