@@ -49,10 +49,9 @@ export default class ExpenseFrom extends React.Component {
     }
     render(){
         return (
-            <div>
-            <form onSubmit = {this.onFormSubmit}>
-            <input type ="text" placeholder ="decription" autoFocus required value ={this.state.decription} onChange ={this.onDescCgange}/>
-            <input type = "text" placeholder ="Amount" value = {this.state.amount} onChange = {this.onAmountChange} required/>
+            <form className ="form" onSubmit = {this.onFormSubmit}>
+            <input className ="text-input" type ="text" placeholder ="decription" autoFocus required value ={this.state.decription} onChange ={this.onDescCgange}/>
+            <input className ="text-input" type = "text" placeholder ="Amount" value = {this.state.amount} onChange = {this.onAmountChange} required/>
             <SingleDatePicker
             date = {this.state.createdAt}
             onDateChange = {this.onDateChange}
@@ -61,10 +60,12 @@ export default class ExpenseFrom extends React.Component {
             numberOfMonths ={1}
             isOutsideRange ={(day)=>false}
             />
-            <textarea placeholder ="Add a note for your expense (optional)" value = {this.state.note} onChange = {this.onNoteChange}></textarea>
-            <button>{this.props.expense ?'Edit Expense' :  'Add Expense'}</button>
-            </form>
+            <textarea className ="textarea" placeholder ="Add a note for your expense (optional)" value = {this.state.note} onChange = {this.onNoteChange}></textarea>
+            <div>
+             <button className = "Button">{this.props.expense ?'Edit Expense' :  'Add Expense'}</button>
             </div>
+            
+            </form>
         )
     }
 }

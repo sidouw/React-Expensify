@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import AppRouter from'./Routers/AppRouter.jsx'
+import AppRouter ,{history} from'./Routers/AppRouter.jsx'
 import configureStore from './Store/configureStore'
 import {startSetExpenses} from './Actions/expensesActions'
+import {login,logout} from './Actions/auth'
 import {firebase} from './firebase/firebase'
 import 'normalize.css/normalize.css'
 import './styles/style.scss'
@@ -17,20 +18,39 @@ const jsx = (
     <AppRouter/>
     </Provider>
 )
-ReactDOM.render(<p>Loading .. .. . .</p>,document.getElementById('app'))
+let hasRendered = false
 
-store.dispatch(startSetExpenses()).then(()=>{
+const renderApp = ()=>{
+    if (!hasRendered) {
+        ReactDOM.render(jsx,document.getElementById('app'))
+        hasRendered = true
+    }
+}
 
-    ReactDOM.render(jsx,document.getElementById('app'))
-})
+
+// ReactDOM.render(<p>Loading .. .. . .</p>,document.getElementById('app'))
+renderApp()
+
+
 
 firebase.auth().onAuthStateChanged((user)=>{
+    
+    
     if (user){
-        console.log('fuck');
-        
+        store.dispatch(login(user.uid))
+        store.dispatch(startSetExpenses()).then(()=>{
+            renderApp()
+        })
+        if(history.location.pathname === '/'){
+            history.push('/dashboard')
+        }
     }else
     {
+        renderApp()
+        store.dispatch(logout())
+        history.push('/')
         console.log('sep');
         
     }
+    console.log(store.getState());
 })

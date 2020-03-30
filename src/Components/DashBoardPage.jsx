@@ -5,9 +5,8 @@ import ExpensesSumarry from './ExpensesSumarry.jsx'
 
 const Dashboard = ()=>(
     <div>
-    <p> dashboard</p>
-    <ExpenseListFilter/>
     <ExpensesSumarry />
+    <ExpenseListFilter/>
     <ExpenseList/>
     </div>
 )

@@ -1,0 +1,22 @@
+.Button{
+
+    background-color: $blue;
+    font-size: $m-size;
+    border: none;
+    color: white;
+    padding: $m-size;
+    font-weight: 300;
+    display: inline-block;
+    font-size: $font-size-large;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.Button--link{
+    background: none;
+}
+
+.Button--sec{
+    background: #888888;
+}
