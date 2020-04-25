@@ -6,7 +6,6 @@ const getVisibleExpenses = (expenses , {text,sortBy,startDate,endDate})=>{
     return expenses.filter((expense)=>{
 
         const DateMatch =  startDate ? moment(expense.createdAt).isBetween(startDate,endDate) :true
-        // const endtDateMatch =  endDate !== 'number' || expense.createdAt<=endDate
         const textMath = expense.description.toLowerCase().includes(text.toLowerCase())
         return DateMatch & textMath
 
